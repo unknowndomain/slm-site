@@ -1,0 +1,3 @@
+[submodule "apps/membership-system"]
+	path = apps/membership-system
+	url = git@github.com:southlondonmakerspace/membership-system.git
