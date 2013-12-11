@@ -1,7 +1,7 @@
 var express = require("express");
 var _ = require("underscore");
 
-var config = require("./config.js");
+var config = require("./config.json");
 
 var site = express();
 site.use(express.logger());
