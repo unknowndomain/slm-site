@@ -7,12 +7,9 @@ var site = express();
 site.use(express.logger());
 site.use(config.static_dir, express.static("."));
 
-// load each app in to the site HAS to be a better way
-_.each(config.apps, function (app, location) {
-    var app_routes = app.app().routes;
-    _.each(app_routes.get, function (route) {
-        site.get("/" + location + route.path, route.callbacks)
-    });
+_.each(config.apps, function (app) {
+    var module = require(app.module);
+    site.use(app.route, module.app());
 });
 
 site.listen(config.port);
