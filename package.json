@@ -23,8 +23,8 @@
     "express-persona" :  "0.1.x",
     "gocardless"    :  "1.0.x",
     "jugglingdb" :  "0.2.x",
-    "jugglingdb-mongodb" :  "0.2.x",
-    "jinja" :  "0.0.x"
+    "jugglingdb-mongodb" :  "0.0.x",
+    "jinja" :  "0.13.x"
   },
   "license": "GPLv3",
   "engines": {
