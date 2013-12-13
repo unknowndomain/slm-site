@@ -5,6 +5,9 @@
     "logo": "./static/img/logo.png",
     "templates_dir": "./templates",
     "secret_key": "!!!! CHANGE ME !!!",
+    "db": {
+        "connection_string": "memory"
+    },
     "apps": [
         {
             "route": "/membership",
