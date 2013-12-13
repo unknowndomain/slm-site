@@ -8,10 +8,10 @@ var jinja = require("jinja");
 
 var site = express();
 
-app.engine('html', swig.renderFile);
+site.engine('html', jinja.compileFile);
 
-app.set('view engine', '.jinja.html');
-app.set('views', './templates');
+site.set('view engine', '.jinja.html');
+site.set('views', './templates');
 
 site.use(express.logger());
 site.use("/static", express.static(config.static_dir));
