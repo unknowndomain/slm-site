@@ -7,7 +7,7 @@ var db = require("./database")(config.db.connection_string);
 
 var site = express();
 site.use(express.logger());
-site.use(config.static_dir, express.static(".")); // TODO
+site.use("/static", express.static(config.static_dir));
 
 _.each(config.apps, function (app) {
     var module = require(app.module);
