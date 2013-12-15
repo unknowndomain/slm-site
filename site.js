@@ -4,14 +4,13 @@ var _ = require("underscore");
 var config = require("./config.json");
 
 var db = require("./database")(config.db.connection_string);
-var jinja = require("jinja");
+var swig = require('swig');
 
 var site = express();
 
-site.engine('html', jinja.compileFile);
+site.engine('swig.html', swig.renderFile);
 
-site.set('view engine', '.jinja.html');
-site.set('views', './templates');
+site.set('view engine', 'swig.html');
 
 site.use(express.logger());
 site.use("/static", express.static(config.static_dir));
