@@ -7,12 +7,13 @@ module.exports = function (connection_string) {
     var User = schema.define('User', {
         name: String,
         email: String,
+        address: { type: Schema.Text },
         enabled: { type: Date,    default: true }, // used if the user should not be approved
         approved: { type: Date,    default: false },
         joined: { type: Date,    default: function () { return new Date;} }
     });
     
-    User.validatesPresenceOf('name', 'email')
+    User.validatesPresenceOf('name', 'email', "address")
     User.validatesUniquenessOf('email', {message: 'email is not unique'});
     
     User.prototype.is_approved = function () {
