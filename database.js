@@ -42,7 +42,7 @@ module.exports = function (connection_string) {
         description: Schema.Text,
         created: { type: Date,    default: function () { return new Date;} },
         type: { type: String, default: "unknown" },
-        renumeration: { type: Number, default: null }
+        renumeration: { type: Number, default: null } // if not null then renumeration occured. If less than 0 (negative) then money was donated to the space, if greater than 0 (positive) then money was handed back to the user.
     });
     
     HistoricEvent.validatesPresenceOf("uuid", "description", "type");
