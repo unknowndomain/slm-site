@@ -17,16 +17,16 @@ module.exports = function (connection_string) {
         },
         email: String,
         address: { type: Schema.Text },
-        enabled: { type: Date,    default: true }, // used if the user should not be approved
-        approved: { type: Date,    default: false },
+        approved: { type: Date,    default: true }, // used if the user should not be approved
+        active: { type: Date,    default: false }, // for use for when their payment hasn't come through
         joined: { type: Date,    default: function () { return new Date;} }
     });
     
     User.validatesPresenceOf('name', 'email', "address", "uuid")
     User.validatesUniquenessOf('email', {message: 'email is not unique'});
     
-    User.prototype.is_approved = function () {
-        return this.enabled && this.approved;
+    User.prototype.is_active = function () {
+        return this.approved && this.active;
     }
 
     return {
