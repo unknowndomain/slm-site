@@ -6,6 +6,15 @@ module.exports = function (connection_string) {
     // simplier way to describe model
     var User = schema.define('User', {
         name: String,
+        uuid: {
+            type: String ,
+            default: function () { // pseudo uuid4
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+                };
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+            }
+        },
         email: String,
         address: { type: Schema.Text },
         enabled: { type: Date,    default: true }, // used if the user should not be approved
@@ -13,7 +22,7 @@ module.exports = function (connection_string) {
         joined: { type: Date,    default: function () { return new Date;} }
     });
     
-    User.validatesPresenceOf('name', 'email', "address")
+    User.validatesPresenceOf('name', 'email', "address", "uuid")
     User.validatesUniquenessOf('email', {message: 'email is not unique'});
     
     User.prototype.is_approved = function () {
