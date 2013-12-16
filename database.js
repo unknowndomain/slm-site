@@ -28,6 +28,26 @@ module.exports = function (connection_string) {
     User.prototype.is_active = function () {
         return this.approved && this.active;
     }
+    
+    var HistoricEvent = schema.define('HistoricEvent', {
+        uuid: {
+            type: String ,
+            default: function () { // pseudo uuid4
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+                };
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+            }
+        },
+        description: Schema.Text,
+        created: { type: Date,    default: function () { return new Date;} },
+        type: { type: String, default: "unknown" },
+        renumeration: { type: Number, default: null }
+    });
+    
+    HistoricEvent.validatesPresenceOf("uuid", "description", "type");
+    
+    User.hasMany(HistoricEvent,  {as: 'historic_events',  foreignKey: 'user_id'});
 
     return {
         User: User
