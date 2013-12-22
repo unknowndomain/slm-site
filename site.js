@@ -17,7 +17,7 @@ site.use("/static", express.static(config.static_dir));
 
 _.each(config.apps, function (app) {
     var module = require(app.module);
-    site.use(app.route, module.app(db, site, config));
+    site.use(app.route, module.app(config, db, site));
 });
 
 site.listen(config.port);
