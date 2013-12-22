@@ -2,4 +2,7 @@
   body {
     padding-top: 1em;
   }
+  .row {
+    margin-top: 20px;
+  }
 }
