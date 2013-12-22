@@ -9,9 +9,11 @@
     <body>
         <div class="container">
             <div class="row">
-              <a href="/">
-                <img src="/static/img/logo.png" alt="South London Makerspace" />
-            </a>
+                <div class="col-md-12">
+                    <a href="/">
+                        <img src="/static/img/logo.png" alt="South London Makerspace" />
+                    </a>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -20,15 +22,19 @@
                     {% endblock %}
                 </div>
                 <div class="col-md-4">
+                    {% block navigation %}
                     <ul class="nav nav-pills nav-stacked">
                         {% for module in modules %}
                             <li><a href="{{ module.route }}">{{ module.name }}</a></li>
                         {% endfor %}
                     </ul>
+                    {% endblock %}
                 </div>
             </div>
         </div>
         <script src="/static/js/jquery-2.0.3.min.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
+        {% block js %}
+        {% endblock %}
     </body>
 </html>
