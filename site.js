@@ -15,6 +15,9 @@ site.set('view engine', 'swig.html');
 site.use(express.logger());
 site.use("/static", express.static(__dirname + "/" + config.static_dir));
 
+site.use(express.cookieParser())
+site.use(express.session({secret: config.secret}));
+
 _.each(config.apps, function (app) {
     var module = require(app.module);
     site.use(app.route, module.app(config, db, site));

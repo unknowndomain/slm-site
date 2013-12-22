@@ -4,3 +4,6 @@
 [submodule "apps/slm-frontpage"]
 	path = apps/slm-frontpage
 	url = git@github.com:yamatt/slm-frontpage.git
+[submodule "apps/slm-persona"]
+	path = apps/slm-persona
+	url = git@github.com:yamatt/slm-persona.git
