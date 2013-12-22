@@ -13,7 +13,7 @@ site.engine('swig.html', swig.renderFile);
 site.set('view engine', 'swig.html');
 
 site.use(express.logger());
-site.use("/static", express.static(config.static_dir));
+site.use("/static", express.static(__dirname + "/" + config.static_dir));
 
 _.each(config.apps, function (app) {
     var module = require(app.module);
