@@ -1,3 +1,6 @@
 [submodule "apps/membership-system"]
 	path = apps/membership-system
 	url = git@github.com:southlondonmakerspace/membership-system.git
+[submodule "apps/slm-frontpage"]
+	path = apps/slm-frontpage
+	url = git@github.com:yamatt/slm-frontpage.git

@@ -10,8 +10,8 @@
     },
     "apps": [
         {
-            "route": "/membership",
-            "module": "./apps/membership-system/app.js"
+            "route": "/",
+            "module": "./apps/slm-frontpage/app.js"
         }
     ]
 }
