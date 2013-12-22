@@ -1,7 +1,7 @@
 var Schema = require('jugglingdb').Schema;
 
-module.exports = function (connection_string) {
-    var schema = new Schema(connection_string); //port number depends on your configuration
+module.exports = function (config) {
+    var schema = new Schema(config.connection_string); //port number depends on your configuration
 
     // simplier way to describe model
     var User = schema.define('User', {
@@ -53,8 +53,26 @@ module.exports = function (connection_string) {
     
     User.hasMany(HistoricEvent,  {as: 'historic_events',  foreignKey: 'user_id'});
 
-    return {
-        User: User
+    return function (req, res, next) {
+        if (req.session.email) {
+            // lookup user from email in the database
+            User.findOne({where: {email: req.session.email}}, function (err, user) {
+                if (!err) {
+                    if (user) {
+                        // if user exists: insert the user account in to the locals
+                        res.locals.user = user;
+                    }
+                    else {
+                        // user the user does not exist in the database: redirect them to the account screen
+                        // I'm starting to regret the way I've done this bit and where it is in the code. Should really be it's own middleware.
+                        if (req.path != "/accounts") {
+                            res.redirect("/accounts");
+                        }
+                    }
+                }
+            });
+        }
+        next();
     }
 }
 
