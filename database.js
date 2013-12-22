@@ -17,9 +17,13 @@ module.exports = function (connection_string) {
         },
         email: String,
         address: { type: Schema.Text },
-        approved: { type: Date,    default: true }, // used if the user should not be approved
-        active: { type: Date,    default: false }, // for use for when their payment hasn't come through
-        joined: { type: Date,    default: function () { return new Date;} }
+        disabled: { type: Boolean, default: false }, // for when the user wants to disable their account (self)
+        approved: { type: Boolean,    default: true }, // used for when an an administrator wishes to disable the account (admin)
+        member: { type: Boolean,    default: false }, // for use when their payments have been received (computer)
+        joined: { type: Date,    default: function () { return new Date;} }, // when the account was created (not their first payment)
+        last_logged_in: { type: Date }, // when they last signed in to the website
+        last_entered: { type: Date }, // last recorded that they went on site
+        last_updated: { type: Date } // last time any entry was updated
     });
     
     User.validatesPresenceOf('name', 'email', "address", "uuid")
