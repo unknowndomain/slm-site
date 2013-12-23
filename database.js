@@ -62,14 +62,8 @@ module.exports = function (config) {
                         // if user exists: insert the user account in to the locals
                         res.locals.user = user;
                     }
-                    else {
-                        // user the user does not exist in the database: redirect them to the account screen
-                        // I'm starting to regret the way I've done this bit and where it is in the code. Should really be it's own middleware.
-                        if (req.path != "/accounts") {
-                            res.redirect("/accounts");
-                        }
-                    }
                 }
+                console.log("There was an error retrieving the user '" + req.session.email + "' from the database: " + err);
             });
         }
         next();
