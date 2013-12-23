@@ -24,9 +24,11 @@
                 <div class="col-md-4">
                     {% block navigation %}
                     <ul class="nav nav-pills nav-stacked">
-                        {% for module in modules %}
-                            <li><a href="{{ module.route }}">{{ module.name }}</a></li>
-                        {% endfor %}
+                        {% if email %}
+                            {% for item in nav %}
+                                <li><a href="{{ item.route }}">{{ item.name }}</a></li>
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                     {% endblock %}
                 </div>
