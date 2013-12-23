@@ -26,9 +26,34 @@ site.use(function (req, res, next) {
 
 site.use(db(config.db));
 
-_.each(config.apps, function (app) {
+site.locals.nav = []
+
+_.each(_.sortBy(config.apps, function (app) {
+        if (app.position) {
+            return app.position
+        }
+        else {
+            return 0
+        }
+    }), function (app) {
     var module = require(app.module);
     site.use(app.route, module.app(config, db, site));
+    
+    // setup nav for navigation menu
+    if (module.routes == undefined) {
+        site.locals.nav.push({
+            route: app.route,
+            name: module.title
+        });
+    }
+    else {
+        _.each(module.routes, function(route) {
+            site.locals.nav.push({
+                route: app.route + route.path,
+                name: route.name
+            });
+        });
+    }
 });
 
 site.listen(config.port);
