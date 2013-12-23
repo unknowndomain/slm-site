@@ -14,8 +14,13 @@
             "module": "./apps/slm-frontpage/app.js"
         },
         {
-            "route": "/",
-            "module": "./apps/slm-persona/app.js"
+            "route": "/auth",
+            "module": "./apps/slm-persona/app.js",
+            "position": 100
+        },
+        {
+            "route": "/account",
+            "module": "./apps/membership-system/app.js"
         }
         
     ],
