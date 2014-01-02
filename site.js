@@ -42,8 +42,9 @@ _.each(_.sortBy(config.apps, function (app) { return app.position || 0 }), funct
     else {
         _.each(module.routes, function(route) {
             site.locals.nav.push({
-                route: app.route + route.path,
-                name: route.name
+                route: route.path ? app.route + route.path : null,
+                name: route.name,
+                click: route.click
             });
         });
     }
