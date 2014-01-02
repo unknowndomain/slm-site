@@ -22,7 +22,7 @@
             "position": 100
         },
         {
-            "route": "/account",
+            "route": "/membership",
             "module": "./apps/membership-system/app.js"
         }
         
