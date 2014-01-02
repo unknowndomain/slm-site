@@ -53,21 +53,33 @@ module.exports = function (config) {
     HistoricEvent.validatesPresenceOf("uuid", "description", "type");
     
     User.hasMany(HistoricEvent,  {as: 'historic_events',  foreignKey: 'user_id'});
-
+    
+    // used for sql databases
+    if (config.autoupdate) {
+        schema.autoupdate();
+    }
+    
     return function (req, res, next) {
+        res.locals.User = User;
         if (req.session.email) {
             // lookup user from email in the database
             User.findOne({where: {email: req.session.email}}, function (err, user) {
-                if (!err) {
-                    if (user) {
-                        // if user exists: insert the user account in to the locals
-                        res.locals.user = user;
-                    }
+                if (!err && user) {
+                    // if user exists: insert the user account in to the locals
+                    res.locals.user = user;
+                    next();
                 }
-                console.log("There was an error retrieving the user '" + req.session.email + "' from the database: " + err);
+                else if (err) {
+                    next(new Error("There was an error retrieving the user '" + req.session.email + "' from the database: " + err));
+                }
+                else {
+                    next()
+                }
             });
         }
-        next();
+        else {
+            next();
+        }
     }
 }
 
