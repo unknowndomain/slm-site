@@ -28,19 +28,12 @@ site.use(db(config.db));
 
 site.locals.nav = []
 
-_.each(_.sortBy(config.apps, function (app) {
-        if (app.position) {
-            return app.position
-        }
-        else {
-            return 0
-        }
-    }), function (app) {
+_.each(_.sortBy(config.apps, function (app) { return app.position || 0 }), function (app) {
     var module = require(app.module);
     site.use(app.route, module.app(config, db, site));
     
     // setup nav for navigation menu
-    if (module.routes == undefined) {
+    if (!module.routes) {
         site.locals.nav.push({
             route: app.route,
             name: module.title
