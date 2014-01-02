@@ -6,7 +6,10 @@
     "templates_dir": "./templates",
     "secret": "!!!! CHANGE ME !!!",
     "db": {
-        "connection_string": "memory"
+        "type": "memory",
+        "setup": {
+        },
+        "autoupdate": true
     },
     "apps": [
         {

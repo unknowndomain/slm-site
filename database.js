@@ -1,7 +1,7 @@
 var Schema = require('jugglingdb').Schema;
 
 module.exports = function (config) {
-    var schema = new Schema(config.connection_string); //port number depends on your configuration
+    var schema = new Schema(config.type, config.setup);
 
     // simplier way to describe model
     var User = schema.define('User', {
