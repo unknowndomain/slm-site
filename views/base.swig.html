@@ -23,13 +23,7 @@
                 </div>
                 <div class="col-md-4">
                     {% block navigation %}
-                    <ul class="nav nav-pills nav-stacked">
-                        {% if email %}
-                            {% for item in nav %}
-                                <li><a href="{{ item.route }}">{{ item.name }}</a></li>
-                            {% endfor %}
-                        {% endif %}
-                    </ul>
+                        {% include "nav.sub.swig.html" %}
                     {% endblock %}
                 </div>
             </div>
