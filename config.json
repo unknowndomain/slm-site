@@ -11,6 +11,14 @@
         },
         "autoupdate": true
     },
+    "gocardless": {
+        "appId": "DUMMY_APP",
+        "appSecret": "INSERT_APP_SECRET_HERE",
+        "token": "INSERT_MERCHANT_ACCESS_TOKEN",
+        "merchantId": "INSERT_MERCHANT_ID",
+        "secretKey": "----CHANGE-ME ----",
+        "paidWhen": "withdrawn"
+    },
     "apps": [
         {
             "route": "/",
@@ -24,6 +32,10 @@
         {
             "route": "/membership",
             "module": "./apps/membership-system/app.js"
+        },
+        {
+            "route": "/gc",
+            "module": "./apps/slm-gccallback/app.js"
         }
         
     ],
