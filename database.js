@@ -30,8 +30,20 @@ module.exports = function (config) {
     User.validatesPresenceOf('name', 'email', "address", "uuid")
     User.validatesUniquenessOf('email', {message: 'email is not unique'});
     
+    // returns whether the user is an active member, e.g.: allowed in the space
     User.prototype.is_active = function () {
-        return this.approved && this.active;
+        var now = new Date();
+        return !this.disabled && this.approved && this.next_payment() >= now;
+    }
+    
+    User.prototype.next_payment = function () {
+        // calculates when the next payment is due
+        // month + 1
+        // but depends on days in month
+        // must not go over days in month
+        // so for example:
+        // payment on 31st Jan must be paid again on 28th (or 29th) of Feb and 30th of April
+        // MUST WRITE TESTS
     }
     
     var HistoricEvent = schema.define('HistoricEvent', {
