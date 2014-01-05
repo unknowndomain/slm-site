@@ -4,7 +4,7 @@
     "static_dir": "./static",
     "logo": "./static/img/logo.png",
     "templates_dir": "./templates",
-    "secret": "!!!! CHANGE ME !!!",
+    "secret": "!!!! CHANGE ME !!!!",
     "db": {
         "type": "memory",
         "setup": {

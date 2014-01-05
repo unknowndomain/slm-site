@@ -7,3 +7,6 @@
 [submodule "apps/slm-persona"]
 	path = apps/slm-persona
 	url = git@github.com:yamatt/slm-persona.git
+[submodule "apps/slm-gccallback"]
+	path = apps/slm-gccallback
+	url = git@github.com:yamatt/slm-gccallback.git
