@@ -24,7 +24,7 @@ module.exports = function (config) {
         last_payment: { type: Date }, // when the last payment was received
         joined: { type: Date,    default: function () { return new Date;} }, // when the account was created (not their first payment)
         last_logged_in: { type: Date }, // when they last signed in to the website
-        last_entered: { type: Date }, // last recorded that they went on site
+        last_entered: { type: Date }, // last recorded that they went in to the space
         last_updated: { type: Date } // last time any entry was updated
     });
     
@@ -47,6 +47,22 @@ module.exports = function (config) {
             return next_payment_by;
         }
         return null;
+    }
+    
+    User.prototype.paid = function () {
+        this.last_payment = new Date();
+    }
+    
+    User.prototype.logged_in = function () {
+        this.last_logged_in = new Date();
+    }
+    
+    User.prototype.entered = function () {
+        this.last_entered = new Date();
+    }
+    
+    User.prototype.updated = function () {
+        this.last_updated = new Date();
     }
     
     var HistoricEvent = schema.define('HistoricEvent', {
