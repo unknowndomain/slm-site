@@ -38,13 +38,15 @@ module.exports = function (config) {
     }
     
     User.prototype.next_payment = function () {
-        // calculates when the next payment is due
-        // month + 1
-        // but depends on days in month
-        // must not go over days in month
-        // so for example:
-        // payment on 31st Jan must be paid again on 28th (or 29th) of Feb and 30th of April
-        // MUST WRITE TESTS
+        // return current date plus 32 days
+        // represents latest next payment must be paid by
+        // could be done more intelligently
+        if (this.last_payment) {
+            var next_payment_by = new Date(this.last_payment.getTime());
+            next_payment_by.setDate(next_payment_by.getDate()+32);
+            return next_payment_by;
+        }
+        return null;
     }
     
     var HistoricEvent = schema.define('HistoricEvent', {
