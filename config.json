@@ -1,5 +1,5 @@
 {
-    "port": 3000,
+    "port": 8080,
     "title": "South London Makerspace",
     "static_dir": "./static",
     "logo": "./static/img/logo.png",
@@ -39,5 +39,5 @@
         }
         
     ],
-    "audience": "http://localhost:3000/"
+    "audience": "http://localhost:8080/"
 }
