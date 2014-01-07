@@ -17,6 +17,7 @@
         "token": "INSERT_MERCHANT_ACCESS_TOKEN",
         "merchantId": "INSERT_MERCHANT_ID",
         "secretKey": "----CHANGE-ME ----",
+        "sandbox": true,
         "paidWhen": "withdrawn"
     },
     "apps": [
