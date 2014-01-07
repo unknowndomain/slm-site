@@ -25,6 +25,9 @@ site.use(function (req, res, next) {
     next();
 });
 
+config.db.hostname = process.env.OPENSHIFT_MONGODB_DB_HOST
+config.db.port = process.env.OPENSHIFT_MONGODB_DB_PORT
+
 site.use(db(config.db));
 
 site.locals.nav = []
@@ -55,5 +58,5 @@ var ip = process.env.OPENSHIFT_NODEJS_IP || "0.0.0.0";
 var port = process.env.OPENSHIFT_NODEJS_PORT || config.port;
 
 site.listen(port, ip, function() {
-    console.log("Started listening on port " + config.port);
+    console.log("Started listening on port " + port);
 });
