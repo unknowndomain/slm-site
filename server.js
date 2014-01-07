@@ -25,8 +25,7 @@ site.use(function (req, res, next) {
     next();
 });
 
-config.db.hostname = process.env.OPENSHIFT_MONGODB_DB_HOST
-config.db.port = process.env.OPENSHIFT_MONGODB_DB_PORT
+config.db.setup.url = process.env.OPENSHIFT_MONGODB_DB_URL + config.db.setup.database
 
 site.use(db(config.db));
 
