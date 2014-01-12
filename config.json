@@ -5,6 +5,7 @@
     "logo": "./static/img/logo.png",
     "templates_dir": "./templates",
     "secret": "!!!! CHANGE ME !!!!",
+    "force_https": false,
     "db": {
         "type": "memory",
         "setup": {

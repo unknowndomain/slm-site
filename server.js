@@ -14,6 +14,16 @@ site.engine('swig.html', swig.renderFile);
 site.set('view engine', 'swig.html');
 
 site.use(express.logger());
+
+site.use(function(req, res, next) {
+    if ((req.protocol === 'http') && (config.force_https)) {
+        res.redirect('https://' + req.headers.host + req.url);
+    }
+    else {
+        return next();
+    }
+});
+
 site.use("/static", express.static(__dirname + "/" + config.static_dir));
 
 site.use(express.cookieParser())
