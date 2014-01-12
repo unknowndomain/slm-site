@@ -7,6 +7,8 @@ var config = require("./config.json");
 var db = require("./database");
 var swig = require('swig');
 
+process.env.TZ = config.timezone
+
 var site = express();
 
 site.engine('swig.html', swig.renderFile);

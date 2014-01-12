@@ -6,6 +6,7 @@
     "templates_dir": "./templates",
     "secret": "!!!! CHANGE ME !!!!",
     "force_https": false,
+    "timezone": "Europe/London",
     "db": {
         "type": "memory",
         "setup": {
