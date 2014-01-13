@@ -57,6 +57,7 @@ Configure the service using the `config.json` file. A quick explanation of the o
 
 ### OpenShift
 This webservice is built to work with although doesn't require OpenShift -- a free PaaS service from Red Hat. OpenShift uses Git to load the app, once you create the app with Node and your preferred database in use these instructions to load it in to the server:
+
     git remote add openshift -f <openshift-git-repo-url>
     git merge openshift/master -s recursive -X ours
     git push openshift HEAD
