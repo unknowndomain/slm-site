@@ -26,7 +26,7 @@
     "jugglingdb-mongodb" :  "0.0.x",
     "swig" :  "1.2.x"
   },
-  "license": "GPLv3",
+  "license": "AGPLv3",
   "engines": {
     "node": ">=0.10"
   }
