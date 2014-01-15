@@ -34,7 +34,7 @@
         },
         {
             "route": "/membership",
-            "module": "./apps/membership-system/app.js"
+            "module": "./apps/slm-membership/app.js"
         },
         {
             "route": "/gc",

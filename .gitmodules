@@ -1,6 +1,6 @@
-[submodule "apps/membership-system"]
-	path = apps/membership-system
-	url = https://github.com/yamatt/membership-system.git
+[submodule "apps/slm-membership"]
+	path = apps/slm-membership
+	url = https://github.com/yamatt/slm-membership.git
 [submodule "apps/slm-frontpage"]
 	path = apps/slm-frontpage
 	url = https://github.com/yamatt/slm-frontpage.git
