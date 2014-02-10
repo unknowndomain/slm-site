@@ -66,7 +66,7 @@ _.each(_.sortBy(config.apps, function (app) { return app.position || 0 }), funct
     }
 });
 
-var ip = process.env.OPENSHIFT_NODEJS_IP || "0.0.0.0";
+var ip = process.env.OPENSHIFT_NODEJS_IP || config.ip || "0.0.0.0";
 var port = process.env.OPENSHIFT_NODEJS_PORT || config.port;
 
 site.listen(port, ip, function() {
