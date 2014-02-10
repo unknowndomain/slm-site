@@ -122,8 +122,16 @@ module.exports = function (config) {
             User.findOne({where: {email: req.session.email}}, function (err, user) {
                 if (!err && user) {
                     // if user exists: insert the user account in to the locals
-                    res.locals.user = user;
-                    next();
+                    user.accessed();
+                    user.save(function(err, user) {
+                        if (!err) {
+                            res.locals.user = user;
+                            next();
+                        }
+                        else {
+                            next(new Error("There was an error updating the user '" + req.session.email + "' from the database: " + err));
+                        }
+                    });
                 }
                 else if (err) {
                     next(new Error("There was an error retrieving the user '" + req.session.email + "' from the database: " + err));
