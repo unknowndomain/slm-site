@@ -1,7 +1,13 @@
 <ul class="nav nav-pills nav-stacked">
 {% for item in nav %}
     {% if item.route %}
-    <li><a href="{{ item.route }}">{{ item.name }}</a></li>
+    <li>
+        {% if item.route == path %}
+            <a href="{{ item.route }}" class="active">{{ item.name }}</a>
+        {% else %}
+            <a href="{{ item.route }}">{{ item.name }}</a>
+        {% endif %}
+    </li>
     {% else %}
     <li><a href="#" onclick="{{ item.click }}">{{ item.name }}</a></li>
     {% endif %}
