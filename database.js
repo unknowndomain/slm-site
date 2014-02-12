@@ -3,7 +3,7 @@ var Schema = require('jugglingdb').Schema;
 module.exports = function (config) {
     var schema = new Schema(config.type, config.setup);
 
-    // simplier way to describe model
+    // USER
     var User = schema.define('User', {
         name: String,
         uuid: {
@@ -23,14 +23,24 @@ module.exports = function (config) {
         gc_subscription: String, // for when a GoCardless subscription has been set up
         last_payment: { type: Date }, // when the last payment was received
         joined: { type: Date,    default: function () { return new Date;} }, // when the account was created (not their first payment)
-        last_logged_in: { type: Date }, // when they last signed in to the website
+        last_accessed: { type: Date }, // when they last accessed the website
         last_entered: { type: Date }, // last recorded that they went in to the space
         last_updated: { type: Date } // last time any entry was updated
     });
     
+    // hooks
+    
+    // set updated time
+    User.prototype.beforeUpdate = function (next) {
+        this.updated()
+        next();
+    };
+    
+    // validation
     User.validatesPresenceOf('name', 'email', "address", "uuid")
     User.validatesUniquenessOf('email', {message: 'email is not unique'});
     
+    // useful functions
     // returns whether the user is an active member, e.g.: allowed in the space
     User.prototype.is_active = function () {
         var now = new Date();
@@ -53,8 +63,8 @@ module.exports = function (config) {
         this.last_payment = new Date();
     }
     
-    User.prototype.logged_in = function () {
-        this.last_logged_in = new Date();
+    User.prototype.accessed = function () {
+        this.last_accessed = new Date();
     }
     
     User.prototype.entered = function () {
@@ -65,6 +75,19 @@ module.exports = function (config) {
         this.last_updated = new Date();
     }
     
+    User.prototype.add_subscription = function (subscription_id) {
+        this.gc_subscription = subscription_id;
+    }
+    
+    User.prototype.cancel_subscription = function () {
+        this.gc_subscription = null;
+    }
+    
+    User.prototype.provided_details = function () {
+        return this.name && this.address
+    }
+    
+    // HISTORIC
     var HistoricEvent = schema.define('HistoricEvent', {
         uuid: {
             type: String ,
@@ -81,8 +104,10 @@ module.exports = function (config) {
         renumeration: { type: Number, default: null } // if not null then renumeration occured. If less than 0 (negative) then money was donated to the space, if greater than 0 (positive) then money was handed back to the user.
     });
     
+    // validation
     HistoricEvent.validatesPresenceOf("uuid", "description", "type");
     
+    // relationship
     User.hasMany(HistoricEvent,  {as: 'historic_events',  foreignKey: 'user_id'});
     
     // used for sql databases
@@ -95,16 +120,26 @@ module.exports = function (config) {
         if (req.session.email) {
             // lookup user from email in the database
             User.findOne({where: {email: req.session.email}}, function (err, user) {
-                if (!err && user) {
-                    // if user exists: insert the user account in to the locals
-                    res.locals.user = user;
-                    next();
-                }
-                else if (err) {
-                    next(new Error("There was an error retrieving the user '" + req.session.email + "' from the database: " + err));
+                if (!err) {
+                    if (user) {
+                        // if user exists: insert the user account in to the locals
+                        user.accessed();
+                        user.save(function(err, user) {
+                            if (!err) {
+                                res.locals.user = user;
+                                next();
+                            }
+                            else {
+                                next(new Error("There was an error updating the user '" + req.session.email + "' from the database: " + err));
+                            }
+                        });
+                    }
+                    else {
+                        next();
+                    }
                 }
                 else {
-                    next()
+                    next(new Error("There was an error retrieving the user '" + req.session.email + "' from the database: " + err));
                 }
             });
         }

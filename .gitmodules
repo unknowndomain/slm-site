@@ -1,12 +1,12 @@
 [submodule "apps/slm-membership"]
 	path = apps/slm-membership
-	url = https://github.com/yamatt/slm-membership.git
+	url = https://github.com/southlondonmakerspace/slm-membership.git
 [submodule "apps/slm-frontpage"]
 	path = apps/slm-frontpage
-	url = https://github.com/yamatt/slm-frontpage.git
+	url = https://github.com/southlondonmakerspace/slm-frontpage.git
 [submodule "apps/slm-persona"]
 	path = apps/slm-persona
-	url = https://github.com/yamatt/slm-persona.git
+	url = https://github.com/southlondonmakerspace/slm-persona.git
 [submodule "apps/slm-gccallback"]
 	path = apps/slm-gccallback
-	url = https://github.com/yamatt/slm-gccallback.git
+	url = https://github.com/southlondonmakerspace/slm-gccallback.git
