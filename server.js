@@ -1,7 +1,6 @@
 #!/bin/env node
 var express = require("express"),
     _ = require("underscore"),
-    flashify = require('flashify'),
     config = require("./config.json"),
     db = require("./database"),
     swig = require('swig');
@@ -27,7 +26,6 @@ site.use(function(req, res, next) {
 
 site.use("/static", express.static(__dirname + "/" + config.static_dir));
 
-site.use(flashify);
 site.use(express.cookieParser(config.secret));
 site.use(express.session());
 site.use(express.bodyParser());
