@@ -1,11 +1,10 @@
 #!/bin/env node
-var express = require("express");
-var _ = require("underscore");
-
-var config = require("./config.json");
-
-var db = require("./database");
-var swig = require('swig');
+var express = require("express"),
+    _ = require("underscore"),
+    flashify = require('flashify'),
+    config = require("./config.json"),
+    db = require("./database"),
+    swig = require('swig');
 
 process.env.TZ = config.timezone
 
