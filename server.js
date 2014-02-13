@@ -27,9 +27,9 @@ site.use(function(req, res, next) {
 
 site.use("/static", express.static(__dirname + "/" + config.static_dir));
 
-site.use(express.cookieParser())
-site.use(express.session({secret: config.secret}));
 site.use(flashify);
+site.use(express.cookieParser(config.secret));
+site.use(express.session());
 site.use(express.bodyParser());
 
 site.use(function (req, res, next) {
