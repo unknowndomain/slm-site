@@ -32,8 +32,14 @@ site.use(express.bodyParser());
 
 site.use(function (req, res, next) {
     res.locals.email = req.session.email;
-    res.locals.path = req.path
+    res.locals.path = req.path;
+    req.session.messages = req.session.messages || []
     res.locals.messages = req.session.messages || []
+    res.locals.get_messages = function () {
+        var messages_clone = _.clone(res.locals.messages);
+        res.locals.messages = [];
+        return messages_clone;
+    }
     next();
 });
 
