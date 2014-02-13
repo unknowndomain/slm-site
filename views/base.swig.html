@@ -9,6 +9,18 @@
     </head>
     <body>
         <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+            <div class="alert alert-{{ message.type }}">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {% if message.title %}
+                <strong>{{ message.title }}</strong><p>{{ message.message }}</p>
+                    {% else %}
+                <p>{{ message.message }}</p>
+                    {% endif %}
+            </div>
+                {% endfor %}
+            {% endif %}
             <div class="row">
                 <div class="col-md-12">
                     <a href="/">
