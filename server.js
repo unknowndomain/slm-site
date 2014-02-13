@@ -33,7 +33,7 @@ site.use(express.bodyParser());
 site.use(function (req, res, next) {
     res.locals.email = req.session.email;
     res.locals.path = req.path
-    res.locals.messages = []
+    res.locals.messages = req.session.messages || []
     next();
 });
 
