@@ -33,12 +33,36 @@ site.use(express.bodyParser());
 site.use(function (req, res, next) {
     res.locals.email = req.session.email;
     res.locals.path = req.path;
+    
+    // setup for flash messages
     req.session.messages = req.session.messages || []
     res.locals.messages = req.session.messages || []
     res.locals.get_messages = function () {
         var messages_clone = _.clone(res.locals.messages);
-        res.locals.messages = [];
+        req.session.messages = [];
         return messages_clone;
+    }
+    
+    res.locals.flash = function (type, title, message) {
+        if (arguments.length == 1) {
+            req.session.messages.push({
+                "type": "info",
+                "message": type
+            });
+        }
+        else if (arguments.length == 2) {
+            req.session.messages.push({
+                "type": type,
+                "message": title
+            });
+        }
+        else if (arguments.length == 3) {
+            req.session.messages.push({
+                "type": type,
+                "title": title,
+                "message": message
+            });
+        }
     }
     next();
 });
