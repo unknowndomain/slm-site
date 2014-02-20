@@ -10,3 +10,9 @@
 [submodule "apps/slm-gccallback"]
 	path = apps/slm-gccallback
 	url = https://github.com/southlondonmakerspace/slm-gccallback.git
+[submodule "apps/slm-members"]
+	path = apps/slm-members
+	url = git@github.com:yamatt/slm-members.git
+[submodule "apps/slm-statement"]
+	path = apps/slm-statement
+	url = https://github.com/yamatt/slm-statement
