@@ -3,18 +3,35 @@ var express = require("express"),
     _ = require("underscore"),
     config = require("./config.json"),
     db = require("./database"),
-    swig = require('swig');
+    swig = require('swig'),
+    moment = require('moment'),
+    crypto = require('crypto');
 
+// force time-zone, useful for non-UK servers
 process.env.TZ = config.timezone
 
 var site = express();
 
+// set up rendering engine for extension
 site.engine('swig.html', swig.renderFile);
+
+// setting up extra swig tags
+swig.setFilter("age", function (input) {
+    var date = moment(input);
+    return date.fromNow();
+});
+
+swig.setFilter("gravatar_hash", function (input) {
+    var md5sum = crypto.createHash('md5');
+    md5sum.update(input.trim().toLowerCase());
+    return md5sum.digest('hex');
+});
 
 site.set('view engine', 'swig.html');
 
 site.use(express.logger());
 
+// if enabled convert HTTP to HTTPS
 site.use(function(req, res, next) {
     if ((req.protocol === 'http') && (config.force_https)) {
         res.redirect('https://' + req.headers.host + req.url);
@@ -67,10 +84,12 @@ site.use(function (req, res, next) {
     next();
 });
 
+// database setup for openshift
 config.db.setup.url = process.env.OPENSHIFT_MONGODB_DB_URL + config.db.setup.database
 
 site.use(db(config.db));
 
+// setup navigation
 site.locals.nav = []
 
 _.each(_.sortBy(config.apps, function (app) { return app.position || 0 }), function (app) {
@@ -95,6 +114,7 @@ _.each(_.sortBy(config.apps, function (app) { return app.position || 0 }), funct
     }
 });
 
+// server setup for openshift
 var ip = process.env.OPENSHIFT_NODEJS_IP || config.ip || "0.0.0.0";
 var port = process.env.OPENSHIFT_NODEJS_PORT || config.port;
 

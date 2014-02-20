@@ -24,7 +24,8 @@
     "gocardless"    :  "1.0.x",
     "jugglingdb" :  "0.2.x",
     "jugglingdb-mongodb" :  "0.0.x",
-    "swig" :  "1.2.x"
+    "swig" :  "1.2.x",
+    "moment": "2.5.x"
   },
   "license": "AGPLv3",
   "engines": {
