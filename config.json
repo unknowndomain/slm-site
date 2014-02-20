@@ -25,7 +25,8 @@
     "apps": [
         {
             "route": "/",
-            "module": "./apps/slm-frontpage/app.js"
+            "module": "./apps/slm-frontpage/app.js",
+            "position": -100
         },
         {
             "route": "/auth",
@@ -39,6 +40,14 @@
         {
             "route": "/gc",
             "module": "./apps/slm-gccallback/app.js"
+        },
+        {
+            "route": "/members",
+            "module": "./apps/slm-members/app.js"
+        },
+        {
+            "route": "/statement",
+            "module": "./apps/slm-statement/app.js"
         }
         
     ],
