@@ -44,7 +44,11 @@ module.exports = function (config) {
     // returns whether the user is an active member, e.g.: allowed in the space
     User.prototype.is_active = function () {
         var now = new Date();
-        return this.provided_details() && !this.disabled && this.approved && this.next_payment() >= now;
+        return this.provided_details() &&
+            !this.disabled &&
+            this.approved &&
+            this.next_payment() &&
+            (now <= this.next_payment());
     }
     
     User.prototype.next_payment = function () {
