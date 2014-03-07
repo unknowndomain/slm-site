@@ -1,5 +1,6 @@
 {
     "port": 8080,
+    "proxy": false,
     "title": "South London Makerspace",
     "static_dir": "./static",
     "logo": "./static/img/logo.png",
@@ -14,6 +15,7 @@
         "autoupdate": true
     },
     "gocardless": {
+        "minimum": 15,
         "appId": "DUMMY_APP",
         "appSecret": "INSERT_APP_SECRET_HERE",
         "token": "INSERT_MERCHANT_ACCESS_TOKEN",

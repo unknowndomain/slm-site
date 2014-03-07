@@ -31,6 +31,10 @@ site.set('view engine', 'swig.html');
 
 site.use(express.logger());
 
+if (config.proxy) {
+    site.enable('trust proxy');
+}
+
 // if enabled convert HTTP to HTTPS
 site.use(function(req, res, next) {
     if ((req.protocol === 'http') && (config.force_https)) {

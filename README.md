@@ -19,6 +19,7 @@ Then run:
 Configure the service using the `config.json` file. A quick explanation of the options:
 
     "port": 8080,                           # port to run the webserver on
+    "proxy": false,                         # whether the site is behind a reverse proxy
     "title": "South London Makerspace",     # title of your web service
     "static_dir": "./static",               # the directory on the filesystem where your static files are kept
     "logo": "./static/img/logo.png",        # the location of the logo file for the web page
@@ -33,6 +34,7 @@ Configure the service using the `config.json` file. A quick explanation of the o
         "autoupdate": true                  # jugglingdb option to prevent the over-writing of values
     },
     "gocardless": {                         # options specific to gocardless: might be better suited to being in the app
+        "minimum": 15,                      # What is the minimum expected payment. This is checked at membership creation time and at billing time.
         "appId": "DUMMY_APP",
         "appSecret": "INSERT_APP_SECRET_HERE",
         "token": "INSERT_MERCHANT_ACCESS_TOKEN",

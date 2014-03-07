@@ -1,3 +1,4 @@
+var assert = require("assert")
 
 describe('Database', function(){
     var db = require("../database")({type: "memory"});
@@ -33,11 +34,21 @@ describe('Database', function(){
                 throw(err);
             }
         });
+        it('should not be active', function () {
+            res.locals.User.findOne({where: {email: "test2@example.com"}}, function(err,user) {
+                if (!err) {
+                    assert.equal(user.is_active(), false);
+                }
+                else {
+                    throw (err);
+                }
+            });
+        });
         it('should have no history', function () {
             res.locals.User.findOne({where: {email: "test2@example.com"}}, function(err,user) {
                 if (!err) {
                     user.historic_events(function(i) {
-                        // assert null
+                         assert.equal(i, null);
                     });
                 }
                 else {
@@ -67,7 +78,7 @@ describe('Database', function(){
             res.locals.User.findOne({where: {email: "test2@example.com"}}, function(err,user) {
                 if (!err) {
                     user.historic_events(function(err, e) {
-                        console.log("''''''", e);
+                        assert.equal(e.length > 0, true);
                     });
                 }
                 else {
