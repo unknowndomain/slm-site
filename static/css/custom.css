@@ -6,3 +6,8 @@
     margin-top: 20px;
   }
 }
+
+::selection {
+  color: #fff;
+  background-color: #ed1c24;
+}
