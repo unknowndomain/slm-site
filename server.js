@@ -54,6 +54,7 @@ site.use(express.bodyParser());
 site.use(function (req, res, next) {
     res.locals.email = req.session.email;
     res.locals.path = req.path;
+    res.locals.now = new Date();
     
     // setup for flash messages
     req.session.messages = req.session.messages || []

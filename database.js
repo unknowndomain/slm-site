@@ -64,6 +64,7 @@ module.exports = function (config) {
     }
     
     User.prototype.paid = function () {
+        // Sets the last_paid value to now. Useful for when you need to say a user has paid.
         this.last_payment = new Date();
     }
     
