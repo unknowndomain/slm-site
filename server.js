@@ -5,7 +5,8 @@ var express = require("express"),
     db = require("./database"),
     swig = require('swig'),
     moment = require('moment'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    MongoStore = require('connect-mongo')(express);
 
 // force time-zone, useful for non-UK servers
 process.env.TZ = config.timezone
@@ -48,7 +49,20 @@ site.use(function(req, res, next) {
 site.use("/static", express.static(__dirname + "/" + config.static_dir));
 
 site.use(express.cookieParser(config.secret));
-site.use(express.session());
+
+// this enforces usage of mongodb
+if (config.db.type == "mongodb") {
+    site.use(express.session({
+        secret: config.secret,
+        store: new MongoStore({
+        db: config.db.setup
+        })
+    }));
+}
+else {
+    site.use(express.session());
+}
+  
 site.use(express.bodyParser());
 
 site.use(function (req, res, next) {
