@@ -50,12 +50,15 @@ site.use("/static", express.static(__dirname + "/" + config.static_dir));
 
 site.use(express.cookieParser(config.secret));
 
+// database setup for openshift
+config.db.setup.url = process.env.OPENSHIFT_MONGODB_DB_URL + config.db.setup.database
+
 // this enforces usage of mongodb
 if (config.db.type == "mongodb") {
     site.use(express.session({
         secret: config.secret,
         store: new MongoStore({
-        db: config.db.setup
+            url: config.db.setup.url
         })
     }));
 }
@@ -102,9 +105,6 @@ site.use(function (req, res, next) {
     }
     next();
 });
-
-// database setup for openshift
-config.db.setup.url = process.env.OPENSHIFT_MONGODB_DB_URL + config.db.setup.database
 
 site.use(db(config.db));
 
