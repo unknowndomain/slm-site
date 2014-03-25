@@ -57,9 +57,7 @@ config.db.setup.url = process.env.OPENSHIFT_MONGODB_DB_URL + config.db.setup.dat
 if (config.db.type == "mongodb") {
     site.use(express.session({
         secret: config.secret,
-        store: new MongoStore({
-            url: config.db.setup.url
-        })
+        store: new MongoStore(config.db.setup)
     }));
 }
 else {
