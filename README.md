@@ -4,15 +4,16 @@ This is a webservice that allows users to become members of the South London Mak
 
 The aim was to make it modular so that other spaces can fork it and make use of it for their own meals and share the code with other spaces.
 
-This part of the service in particular is a loader of modules and apps that can be used more widely with few changes.nd se
+This part of the service in particular is a loader of modules and apps that can be used more widely with few changes.
 
 ## Setup
-Setup is pretty straight forward. Clone the repo then use the following command to download all of the submodules that contain the apps.
+Setup is pretty straightforward. Clone the repo then use the following commands to download all of the submodules that contain the apps.
 
     git submodule init 
     git submodule update
     
 Then run:
+    npm update
     node server.js
 
 ### Configuration
