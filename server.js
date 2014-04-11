@@ -63,8 +63,9 @@ if (config.db.type == "mongodb") {
 else {
     site.use(express.session());
 }
-  
-site.use(express.bodyParser());
+
+site.use(express.json());
+site.use(express.urlencoded());
 
 site.use(function (req, res, next) {
     res.locals.email = req.session.email;
