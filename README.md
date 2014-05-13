@@ -13,6 +13,7 @@ Setup is pretty straightforward. Clone the repo then use the following commands 
     git submodule update
     
 Then run:
+
     npm update
     node server.js
 
