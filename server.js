@@ -7,8 +7,9 @@ var express = require("express"),
     crypto = require('crypto'),
     MongoStore = require('connect-mongo')(express);
     
+var config_path = process.argv[2] || "config.json"
     
-var config = require("./" + process.argv[2]);
+var config = require("./" + config_path);
 
 // force time-zone, useful for non-UK servers
 process.env.TZ = config.timezone;
