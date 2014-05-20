@@ -26,7 +26,7 @@ module.exports = function (config) {
         joined: { type: Date,    default: function () { return new Date;} }, // when the account was created (not their first payment)
         last_accessed: { type: Date }, // when they last accessed the website
         last_entered: { type: Date }, // last recorded that they went in to the space
-        last_updated: { type: Date } // last time any entry was updated
+        last_updated: { type: Date }, // last time any entry was updated
         permission: { type: Number, default: 0 } // permission level. 0 is none, 50 is admin
     });
     
