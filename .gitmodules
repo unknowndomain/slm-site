@@ -16,3 +16,6 @@
 [submodule "apps/slm-members"]
 	path = apps/slm-members
 	url = https://github.com/southlondonmakerspace/slm-members.git
+[submodule "apps/slm-admin"]
+	path = apps/slm-admin
+	url = https://github.com/southlondonmakerspace/slm-admin.git
