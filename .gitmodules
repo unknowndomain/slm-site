@@ -19,3 +19,9 @@
 [submodule "apps/slm-admin"]
 	path = apps/slm-admin
 	url = https://github.com/southlondonmakerspace/slm-admin.git
+[submodule "apps/slm-api"]
+	path = apps/slm-api
+	url = https://github.com/southlondonmakerspace/slm-api.git
+[submodule "apps/slm-account"]
+	path = apps/slm-account
+	url = https://github.com/southlondonmakerspace/slm-account.git

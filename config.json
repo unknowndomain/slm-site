@@ -54,7 +54,16 @@
         {
             "route": "/gc",
             "module": "./apps/slm-gccallback/app.js"
+        },
+        {
+            "route": "/admin",
+            "module": "./apps/slm-admin/app.js"
+        },
+        {
+            "route": "/api",
+            "module": "./apps/slm-api/app.js"
         }
+        
     ],
     "audience": "http://localhost:8080/",
     "adminemail": "admin@example.com",
