@@ -68,9 +68,9 @@ module.exports = function (config) {
             return this.membership_expires;
         }
         else if (this.last_payment) {
-            var next_payment_by = new Date(this.last_payment.getTime());
-            next_payment_by.setDate(next_payment_by.getDate()+32);
-            return next_payment_by;
+            var last_payment = new Date(this.last_payment.getTime());
+            var next_payment = new Date(last_payment.setDate(last_payment.getDate()+32));
+            return next_payment;
         }
         else if (this.gc_donation) {
             return new Date(2014,5,1) // 1st june for one off members
