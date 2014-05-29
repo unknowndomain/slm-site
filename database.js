@@ -25,6 +25,7 @@ module.exports = function (config) {
         gc_subscription: String, // for when a GoCardless subscription has been set up
         gc_donation: String, // for when a GoCardless subscription has been set up
         last_payment: { type: Date }, // when the last payment was received
+        membership_expires: { type: Date }, // when the last payment was received
         joined: { type: Date,    default: function () { return new Date;} }, // when the account was created (not their first payment)
         last_accessed: { type: Date }, // when they last accessed the website
         last_entered: { type: Date }, // last recorded that they went in to the space
@@ -55,24 +56,40 @@ module.exports = function (config) {
             !this.disabled &&
             this.approved &&
             this.next_payment() &&
-            (now <= this.next_payment());
+            now <= this.next_payment();
     }
     
     User.prototype.next_payment = function () {
         // return current date plus 32 days
         // represents latest next payment must be paid by
         // could be done more intelligently
-        if (this.last_payment) {
+        if (this.membership_expires) {
+            return this.membership_expires;
+        }
+        else if (this.last_payment) {
             var next_payment_by = new Date(this.last_payment.getTime());
             next_payment_by.setDate(next_payment_by.getDate()+32);
             return next_payment_by;
+        }
+        else if (this.gc_donation) {
+            return new Date(2014,5,1) // 1st june for one off members
         }
         return null;
     }
     
     User.prototype.paid = function () {
         // Sets the last_paid value to now. Useful for when you need to say a user has paid.
-        this.last_payment = new Date();
+        var now = new Date()
+        if (this.last_payment < now) {
+            this.last_payment = now;
+        }
+        
+        var expires_date = new Date(now);
+        expires_date.setDate(expires_date.getDate()+32);
+        
+        if (this.membership_expires < expires_date) {
+            this.membership_expires = expires_date;
+        }
     }
     
     User.prototype.accessed = function () {
