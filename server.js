@@ -1,15 +1,18 @@
 #!/bin/env node
 var express = require("express"),
     _ = require("underscore"),
-    config = require("./config.json"),
     db = require("./database"),
     swig = require('swig'),
     moment = require('moment'),
     crypto = require('crypto'),
     MongoStore = require('connect-mongo')(express);
+    
+var config_path = process.argv[2] || "config.json"
+    
+var config = require("./" + config_path);
 
 // force time-zone, useful for non-UK servers
-process.env.TZ = config.timezone
+process.env.TZ = config.timezone;
 
 var site = express();
 

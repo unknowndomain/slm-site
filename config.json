@@ -12,6 +12,7 @@
         "type": "memory",
         "setup": {
         },
+        "card_id_salt": "!!!! CHANGE ME !!!!",
         "autoupdate": true
     },
     "gocardless": {
@@ -31,17 +32,12 @@
             "position": -100
         },
         {
-            "route": "/auth",
-            "module": "./apps/slm-persona/app.js",
-            "position": 100
+            "route": "/account",
+            "module": "./apps/slm-account/app.js"
         },
         {
             "route": "/membership",
             "module": "./apps/slm-membership/app.js"
-        },
-        {
-            "route": "/gc",
-            "module": "./apps/slm-gccallback/app.js"
         },
         {
             "route": "/members",
@@ -50,8 +46,26 @@
         {
             "route": "/statement",
             "module": "./apps/slm-statement/app.js"
+        },
+        {
+            "route": "/auth",
+            "module": "./apps/slm-persona/app.js",
+            "position": 100
+        },
+        {
+            "route": "/gc",
+            "module": "./apps/slm-gccallback/app.js"
+        },
+        {
+            "route": "/admin",
+            "module": "./apps/slm-admin/app.js"
+        },
+        {
+            "route": "/api",
+            "module": "./apps/slm-api/app.js"
         }
         
     ],
-    "audience": "http://localhost:8080/"
+    "audience": "http://localhost:8080/",
+    "adminemail": "admin@example.com",
 }

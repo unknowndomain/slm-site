@@ -1,4 +1,5 @@
-var Schema = require('jugglingdb').Schema;
+var Schema = require('jugglingdb').Schema,
+    crypto = require('crypto');
 
 module.exports = function (config) {
     var schema = new Schema(config.type, config.setup);
@@ -16,24 +17,31 @@ module.exports = function (config) {
             }
         },
         email: String,
-        address: { type: Schema.Text },
-        card_id: String,
+        address: { type: Schema.Text }, // users physical address
+        card_id: String, // the ID of the NFC card
+        card_id_hashed: String, // the MD5 hash of the card id with salt
         disabled: { type: Boolean, default: false }, // for when the user wants to disable their account (self)
         approved: { type: Boolean,    default: true }, // used for when an an administrator wishes to disable the account (admin)
         gc_subscription: String, // for when a GoCardless subscription has been set up
         gc_donation: String, // for when a GoCardless subscription has been set up
         last_payment: { type: Date }, // when the last payment was received
+        membership_expires: { type: Date }, // when the last payment was received
         joined: { type: Date,    default: function () { return new Date;} }, // when the account was created (not their first payment)
         last_accessed: { type: Date }, // when they last accessed the website
         last_entered: { type: Date }, // last recorded that they went in to the space
-        last_updated: { type: Date } // last time any entry was updated
+        last_updated: { type: Date }, // last time any entry was updated
+        permission: { type: Number, default: 0 } // permission level. 0 is none, 50 is admin
     });
     
     // hooks
     
     // set updated time
-    User.prototype.beforeUpdate = function (next) {
-        this.updated()
+    User.beforeUpdate = function (next, data) {
+        // beforeUpdate can only update the data object not `this`. ugh
+        data.last_updated = this.updated();
+        if (data.card_id) {
+            data.card_id_hashed = this.hash_card_id();
+        }
         next();
     };
     
@@ -49,24 +57,40 @@ module.exports = function (config) {
             !this.disabled &&
             this.approved &&
             this.next_payment() &&
-            (now <= this.next_payment());
+            now <= this.next_payment();
     }
     
     User.prototype.next_payment = function () {
         // return current date plus 32 days
         // represents latest next payment must be paid by
         // could be done more intelligently
-        if (this.last_payment) {
-            var next_payment_by = new Date(this.last_payment.getTime());
-            next_payment_by.setDate(next_payment_by.getDate()+32);
-            return next_payment_by;
+        if (this.membership_expires) {
+            return this.membership_expires;
+        }
+        else if (this.last_payment) {
+            var last_payment = new Date(this.last_payment.getTime());
+            var next_payment = new Date(last_payment.setDate(last_payment.getDate()+32));
+            return next_payment;
+        }
+        else if (this.gc_donation) {
+            return new Date(2014,5,1) // 1st june for one off members
         }
         return null;
     }
     
     User.prototype.paid = function () {
         // Sets the last_paid value to now. Useful for when you need to say a user has paid.
-        this.last_payment = new Date();
+        var now = new Date()
+        if (this.last_payment < now) {
+            this.last_payment = now;
+        }
+        
+        var expires_date = new Date(now);
+        expires_date.setDate(expires_date.getDate()+32);
+        
+        if (this.membership_expires < expires_date) {
+            this.membership_expires = expires_date;
+        }
     }
     
     User.prototype.accessed = function () {
@@ -78,7 +102,9 @@ module.exports = function (config) {
     }
     
     User.prototype.updated = function () {
-        this.last_updated = new Date();
+        var now = new Date();
+        this.last_updated = now;
+        return now
     }
     
     User.prototype.add_subscription = function (subscription_id) {
@@ -91,6 +117,19 @@ module.exports = function (config) {
     
     User.prototype.provided_details = function () {
         return this.name && this.address
+    }
+    
+    User.prototype.hash_card_id = function () {
+        if (this.card_id) {
+            var md5sum = crypto.createHash('md5');
+            md5sum.update(config.card_id_salt);
+            md5sum.update(this.card_id.toLowerCase());
+            this.card_id_hashed = md5sum.digest('hex');
+        }
+        else {
+            this.card_id_hashed = null;
+        }
+        return this.card_id_hashed
     }
     
     // HISTORIC
