@@ -67,5 +67,5 @@
         
     ],
     "audience": "http://localhost:8080/",
-    "adminemail": "admin@example.com",
+    "adminemail": "admin@example.com"
 }
