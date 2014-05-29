@@ -12,6 +12,7 @@
         "type": "memory",
         "setup": {
         },
+        "card_id_salt": "!!!! CHANGE ME !!!!",
         "autoupdate": true
     },
     "gocardless": {
