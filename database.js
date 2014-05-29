@@ -37,9 +37,10 @@ module.exports = function (config) {
     
     // set updated time
     User.prototype.beforeUpdate = function (next, data) {
-        this.updated();
+        // beforeUpdate can only update the data object not `this`. ugh
+        data.last_updated = this.updated();
         if (data.card_id) {
-            this.hash_card_id();
+            data.card_id_hashed = this.hash_card_id();
         }
         next();
     };
@@ -101,7 +102,9 @@ module.exports = function (config) {
     }
     
     User.prototype.updated = function () {
-        this.last_updated = new Date();
+        var now = new Date();
+        this.last_updated = now;
+        return now
     }
     
     User.prototype.add_subscription = function (subscription_id) {
@@ -126,6 +129,7 @@ module.exports = function (config) {
         else {
             this.card_id_hashed = null;
         }
+        return this.card_id_hashed
     }
     
     // HISTORIC
