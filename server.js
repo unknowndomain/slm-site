@@ -25,15 +25,6 @@ swig.setFilter("age", function (input) {
     return date.fromNow();
 });
 
-swig.setFilter("date", function (date, override) {
-    if (date) {
-        return date.toISOString();
-    }
-    else {
-        return override;
-    }
-});
-
 swig.setFilter("gravatar_hash", function (input) {
     var md5sum = crypto.createHash('md5');
     md5sum.update(input.trim().toLowerCase());
