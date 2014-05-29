@@ -36,7 +36,7 @@ module.exports = function (config) {
     // hooks
     
     // set updated time
-    User.prototype.beforeUpdate = function (next, data) {
+    User.beforeUpdate = function (next, data) {
         // beforeUpdate can only update the data object not `this`. ugh
         data.last_updated = this.updated();
         if (data.card_id) {
