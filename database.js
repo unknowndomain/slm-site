@@ -1,4 +1,5 @@
-var Schema = require('jugglingdb').Schema;
+var Schema = require('jugglingdb').Schema,
+    crypto = require('crypto');
 
 module.exports = function (config) {
     var schema = new Schema(config.type, config.setup);
@@ -16,8 +17,9 @@ module.exports = function (config) {
             }
         },
         email: String,
-        address: { type: Schema.Text },
-        card_id: String,
+        address: { type: Schema.Text }, // users physical address
+        card_id: String, // the ID of the NFC card
+        card_id_hashed: String, // the MD5 hash of the card id with salt
         disabled: { type: Boolean, default: false }, // for when the user wants to disable their account (self)
         approved: { type: Boolean,    default: true }, // used for when an an administrator wishes to disable the account (admin)
         gc_subscription: String, // for when a GoCardless subscription has been set up
@@ -33,8 +35,11 @@ module.exports = function (config) {
     // hooks
     
     // set updated time
-    User.prototype.beforeUpdate = function (next) {
-        this.updated()
+    User.prototype.beforeUpdate = function (next, data) {
+        this.updated();
+        if (data.card_id) {
+            this.hash_card_id();
+        }
         next();
     };
     
@@ -92,6 +97,18 @@ module.exports = function (config) {
     
     User.prototype.provided_details = function () {
         return this.name && this.address
+    }
+    
+    User.prototype.hash_card_id = function () {
+        if (this.card_id) {
+            var md5sum = crypto.createHash('md5');
+            md5sum.update(config.card_id_salt);
+            md5sum.update(this.card_id.toLowerCase());
+            this.card_id_hashed = md5sum.digest('hex');
+        }
+        else {
+            this.card_id_hashed = null;
+        }
     }
     
     // HISTORIC
