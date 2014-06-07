@@ -48,6 +48,10 @@
             "module": "./apps/slm-statement/app.js"
         },
         {
+            "route": "/webcam",
+            "module": "./apps/slm-webcam/app.js"
+        },
+        {
             "route": "/auth",
             "module": "./apps/slm-persona/app.js",
             "position": 100
