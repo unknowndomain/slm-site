@@ -1,6 +1,6 @@
 # South London Makerspace Membership Management Service
 
-This is a webservice that allows users to become members of the South London Makerspace and manage their membership.
+This is a web service that allows users to become members of the South London Makerspace and manage their membership.
 
 The aim was to make it modular so that other spaces can fork it and make use of it for their own meals and share the code with other spaces.
 
@@ -57,10 +57,16 @@ Configure the service using the `config.json` file. A quick explanation of the o
         },
         
     ],
-    "audience": "http://localhost:8080/"    # used by persona to authenticate the server https://npmjs.org/package/express-persona
+    "audience": "http://localhost:8080/",    # used by persona to authenticate the server https://npmjs.org/package/express-persona
+	"webcams": [                             # list all the names and source JPEGs for the webcams to appear in this section
+		{
+			"name": "Camera 1",
+			"source" "http://example.com/webcam1.jpg"
+		}
+	]
 
 ### OpenShift
-This webservice is built to work with although doesn't require OpenShift -- a free PaaS service from Red Hat. OpenShift uses Git to load the app, once you create the app with Node and your preferred database in use these instructions to load it in to the server:
+This web service is built to work with although doesn't require OpenShift -- a free PaaS service from Red Hat. OpenShift uses Git to load the app, once you create the app with Node and your preferred database in use these instructions to load it in to the server:
 
     git remote add openshift -f <openshift-git-repo-url>
     git merge openshift/master -s recursive -X ours
@@ -71,7 +77,7 @@ Don't forget to push again when you want to try it out and push back to your git
 ## License
 
     South London Makerspace Membership Management Service
-    Copyright (C) 2014  Matt Copperwaite
+    Copyright (C) 2014 Matt Copperwaite
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
