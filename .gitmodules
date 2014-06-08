@@ -27,4 +27,4 @@
 	url = https://github.com/southlondonmakerspace/slm-account.git
 [submodule "apps/slm-webcams"]
 	path = apps/slm-webcams
-	url = git@github.com:unknowndomain/slm-webcams.git
+	url = https://github.com/southlondonmakerspace/slm-webcams.git
