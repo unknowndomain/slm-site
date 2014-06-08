@@ -48,6 +48,10 @@
             "module": "./apps/slm-statement/app.js"
         },
         {
+            "route": "/webcams",
+            "module": "./apps/slm-webcams/app.js"
+        },
+        {
             "route": "/auth",
             "module": "./apps/slm-persona/app.js",
             "position": 100
@@ -67,5 +71,11 @@
         
     ],
     "audience": "http://localhost:8080/",
-    "adminemail": "admin@example.com"
+    "adminemail": "admin@example.com",
+	"webcams": [
+		{
+			"name": "Clean side",
+			"source": "!!!! CHANGE ME !!!!"
+		}
+	]
 }
