@@ -16,7 +16,7 @@
         "autoupdate": true
     },
     "gocardless": {
-        "minimum": 15,
+        "minimum": 20,
         "appId": "DUMMY_APP",
         "appSecret": "INSERT_APP_SECRET_HERE",
         "token": "INSERT_MERCHANT_ACCESS_TOKEN",
