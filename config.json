@@ -25,6 +25,10 @@
         "sandbox": true,
         "paidWhen": "withdrawn"
     },
+	"slack": {
+        "url": "https://slms.slack.com/api/",
+		"token": ""
+	},
     "apps": [
         {
             "route": "/",
