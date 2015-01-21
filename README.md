@@ -36,7 +36,7 @@ Configure the service using the `config.json` file. A quick explanation of the o
         "autoupdate": true                  # jugglingdb option to prevent the over-writing of values
     },
     "gocardless": {                         # options specific to gocardless: might be better suited to being in the app
-        "minimum": 15,                      # What is the minimum expected payment. This is checked at membership creation time and at billing time.
+        "minimum": 20,                      # What is the minimum expected payment. This is checked at membership creation time and at billing time.
         "appId": "DUMMY_APP",
         "appSecret": "INSERT_APP_SECRET_HERE",
         "token": "INSERT_MERCHANT_ACCESS_TOKEN",
@@ -44,6 +44,10 @@ Configure the service using the `config.json` file. A quick explanation of the o
         "secretKey": "----CHANGE-ME ----",  # the end part of the url path the webhook posts to. Sort of like a private key. Don't use this for any other secret key.
         "sandbox": true,                    # whether gocardless works in sandbox mode
         "paidWhen": "withdrawn"             # either 'withdrawn' or 'paid' as to whether the membership is valid
+    },
+    "slack": {
+        "url": "https://slms.slack.com/api/",
+        "token": ""                         # what is the slack api url?
     },
     "apps": [                               # array of apps to load
         {
