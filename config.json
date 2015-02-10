@@ -72,10 +72,10 @@
     ],
     "audience": "http://localhost:8080/",
     "adminemail": "admin@example.com",
-	"webcams": [
-		{
-			"name": "Clean side",
-			"source": "!!!! CHANGE ME !!!!"
-		}
-	]
+    "webcams": [
+        {
+            "name": "Clean side",
+            "source": "!!!! CHANGE ME !!!!"
+        }
+    ]
 }
