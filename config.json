@@ -15,6 +15,10 @@
         "card_id_salt": "!!!! CHANGE ME !!!!",
         "autoupdate": true
     },
+    "slack": {
+        "url": "URL to Slack instance",
+        "token": "API token key"
+    },
     "gocardless": {
         "minimum": 15,
         "appId": "DUMMY_APP",
