@@ -15,7 +15,7 @@
         "card_id_salt": "!!!! CHANGE ME !!!!",
         "autoupdate": true
     },
-    "slack: {
+    "slack": {
         "url": "URL to Slack instance",
         "token": "API token key"
     },
