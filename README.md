@@ -15,7 +15,7 @@ Setup is pretty straightforward. Clone the repo then use the following commands 
 Then run:
 
     npm update
-    node server.js
+    npm start
 
 ### Configuration
 Configure the service using the `config.json` file. A quick explanation of the options:

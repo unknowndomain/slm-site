@@ -32,6 +32,9 @@
   "license": "AGPLv3",
   "engines": {
     "node": ">=0.10"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
 }
 

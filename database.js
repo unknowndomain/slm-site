@@ -41,8 +41,13 @@ module.exports = function (config) {
     User.beforeUpdate = function (next, data) {
         // beforeUpdate can only update the data object not `this`. ugh
         data.last_updated = this.updated();
-        if (data.card_id) {
-            data.card_id_hashed = this.hash_card_id();
+        if (data.card_id != undefined) { // card_id has been changed
+            if (data.card_id != "") { // card_id has a usable value
+                data.card_id_hashed = this.hash_card_id();
+            }
+            else {
+                data.card_id_hashed = null;
+            }
         }
         next();
     };

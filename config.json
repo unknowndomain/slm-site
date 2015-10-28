@@ -15,6 +15,10 @@
         "card_id_salt": "!!!! CHANGE ME !!!!",
         "autoupdate": true
     },
+    "slack": {
+        "url": "URL to Slack instance",
+        "token": "API token key"
+    },
     "gocardless": {
         "minimum": 20,
         "appId": "DUMMY_APP",
@@ -76,10 +80,10 @@
     ],
     "audience": "http://localhost:8080/",
     "adminemail": "admin@example.com",
-	"webcams": [
-		{
-			"name": "Clean side",
-			"source": "!!!! CHANGE ME !!!!"
-		}
-	]
+    "webcams": [
+        {
+            "name": "Clean side",
+            "source": "!!!! CHANGE ME !!!!"
+        }
+    ]
 }
